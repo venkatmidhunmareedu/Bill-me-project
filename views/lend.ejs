@@ -1,0 +1,55 @@
+<%- include("header") %>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row" style="align-content: center;">
+            <div class="col-sm-4 col-lg-4 col-md-4"></div>
+            <div class="col-sm-4 col-lg-4 col-md-4 text-center">
+                <br><br><br>
+                <div class="text-center">
+                    <h1>
+                        <i class="fa-solid fa-file-arrow-up mr-1"></i>Lend</h1>
+                </div>
+                <br><br>
+                <form action="/lend/<%= userdetails.username %>" method="post">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Person Name" name="person_name">
+                        <input type="text" class="form-control" placeholder="Amount" name="amount">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-dark" type="submit">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <br><br>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Person Name</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Update Now</th>
+                        </tr>
+                    </thead>
+                    <tbody class="font-weight-bold">
+                       <% for (var i=lendList.length-1; i>=0; i--) { %>
+                            <tr class="alert <% if(lendList[i].status){ %> alert-success <% } else { %>  alert-danger <% } %>">
+                                <td > <%= lendList[i].person %> </td>
+                                <td > <%= lendList[i].pay %>/-</td>
+                                <td class="small font-weight-bold"> <% if(lendList[i].status){%>Paid<%}else{%>Given<%}%>@<%=lendList[i].datetime.toLocaleString("en-US" , { day: "2-digit", month: "long", year: "numeric", weekday : "long" , hour : "2-digit" , minute : "2-digit" , second : "2-digit" })%></td>
+                                <td>
+                                    <form action="/lend/update/<%= userdetails.username %>" method="post" >
+                                        <button class="btn btn-dark btn-sm" name="person" value="<%= lendList[i]._id.toString() %>">
+                                            <i class="fa-solid fa-arrows-rotate"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>   
+                        <%  }  %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-4 col-lg-4 col-md-4"></div>
+        </div>
+    </section>
+    <%- include("footer") %>

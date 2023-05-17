@@ -1,0 +1,18 @@
+{
+  "name": "bill-me-project",
+  "version": "1.0.0",
+  "description": "This is sample project on how a billing system works in a shop!",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mareedu Venkata Midhun",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mongoose": "^7.1.1"
+  }
+}

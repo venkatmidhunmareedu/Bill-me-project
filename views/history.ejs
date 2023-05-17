@@ -1,0 +1,61 @@
+<%- include("header") %>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row" style="align-content: center;">
+            <div class="col-sm-4 col-lg-4 col-md-4"></div>
+            <div class="col-sm-4 col-lg-4 col-md-4 text-center">
+                <br>
+                    <br>
+                        <br>
+                            <h1 class="title"><i class="fa-solid fa-clock-rotate-left mr-1"></i>History</h1>
+                            <br>
+                                <br>
+                                        <% for(var i=listItems.length-1; i>=0; i--) { %>
+                                            <div class="card jumbotron">
+                                            <div class="lead">
+                                                <p><%= times[i].toLocaleString("en-GB" , { day: "2-digit", month: "long", year: "numeric", weekday : "long" , hour : "2-digit" , minute : "2-digit" , second : "2-digit" }) %></p>
+                                            </div>
+                                            <table class="table text-center">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">S.no</th>
+                                                        <th scope="col">Item</th>
+                                                        <th scope="col">Price</th>
+                                                        <th scope="col">Quantity</th>
+                                                    </tr>
+                                                </thead>
+                                                <% for(var j=0; j<listItems[i].length; j++) { %>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row"><%= j+1 %></th>
+                                                            <td><%= listItems[i][j].name %></td>
+                                                            <td><%= listItems[i][j].price %></td>
+                                                            <td><%= listItems[i][j].quantity %></td>
+                                                        </tr>
+                                                    </tbody>
+                                                <% } %>
+                                                <br>
+                                                    <br>
+                                                        <table class="table text-center">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col">Total Cost</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th scope="row">1</th>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </table>
+                                                    <br>
+                                                        <br>
+                                                            </div><br><br><br>
+                                                            <% } %>
+                                                    </div>
+                                                    <div class="col-sm-4 col-lg-4 col-md-4"></div>
+                                                </div>
+                                            </section>
+                                            <%- include("footer") %>

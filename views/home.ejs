@@ -1,0 +1,210 @@
+<%- include("header") %>
+<style>
+    @media print {
+         
+        body * {
+            visibility: hidden;
+        }
+        #printable-content,
+        #printable-content * {
+            visibility: visible;
+        }
+         
+        #printable-content {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        #extra,
+        #extra * {
+            display: none;
+        }
+    }
+</style>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row" style="align-content: center;">
+            <div class="col-sm-4 col-lg-4 col-md-4"></div>
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="input-group mb-3 mt-4">
+                    <form method="post" class="d-flex" name="add">
+                        <input type="text" class="form-control" placeholder="Product" name="pro_name" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+                            <input type="text" class="form-control" placeholder="Price(Rs.)" name="pro_price" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+                                <input type="text" class="form-control" placeholder="Quantity" name="pro_quantity" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+                                    <button class="btn btn-dark ml-2" type="submit">
+                                        <i class="fa-solid fa-circle-plus fa-lg"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <br>
+                                <br>
+                                    <br>
+                                        <div id="printable-content">
+                                            <table class="table text-center" id="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">S.no</th>
+                                                        <th scope="col">Item</th>
+                                                        <th scope="col">Price</th>
+                                                        <th scope="col">Quantity</th>
+                                                        <th scope="col" id="extra">Delete</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <%  for(var i=0; i < items.length; i++) { %>
+
+                                                        <tr>
+                                                            <th scope="row"><%= i+1 %></th>
+                                                            <td><%= items[i].name %></td>
+                                                            <td><%= items[i].price %>
+                                                            </td>
+                                                            <td><%= items[i].quantity %></td>
+                                                            <td id="extra">
+                                                                <form action="/home/<%= userdetails.username %>/del" method="post">
+                                                                    <button class="btn btn-dark btn-sm" name="del" value="<%= items[i].name %>">
+                                                                        <i class="fa-solid fa-trash"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </td>
+                                                        </tr>
+
+                                                    <% }    %>
+                                                </tbody>
+                                            </table>
+                                            <br>
+                                                <br>
+                                                    <table class="table text-center" id="total">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Total Cost</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row"><%= cost %></th>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="text-center">
+                                                    <button class="btn btn-dark mt-1" id="print-btn">
+                                                        <i class="fa-solid fa-print mr-1"></i>Print</button>
+                                                    <button class="btn btn-dark mt-1" id="whatsapp-btn">
+                                                        <i class="fa-brands fa-whatsapp mr-1"></i>Share details on Whatsapp</button>
+                                                    <form action="/home/<%= userdetails.username %>/save" method="post" class="mt-1">
+                                                        <button class="btn btn-dark mt-1" id="whatsapp-btn">
+                                                            <i class="fa-solid fa-floppy-disk mr-1"></i>Save</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 col-lg-4 col-md-4"></div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <script>
+                                    // Add functionality to the "Print" button
+                                    document.getElementById("print-btn").addEventListener("click", function () {
+
+
+
+
+
+                                        window.print();
+
+
+
+
+
+                                    });
+
+                                    // Add functionality to the "Share Details on WhatsApp" button
+                                    document.getElementById("whatsapp-btn").addEventListener("click", function () {
+
+
+
+                                        // Replace the following with the data you want to share
+                                        // Get the table element
+                                        var table = document.getElementById("table");
+                                        var total = document.getElementById("total");
+                                        // Initialize an empty string to store the converted plain text
+                                        var plainText = "Dear Valued Customer,\nPlease find below the details of your bill:\n";
+                                        // Traverse each row in the table
+                                        for (var i = 0; i < table.rows.length - 1; i++) {
+
+
+
+                                            var row = table.rows[i];
+
+                                            // Traverse each cell in the row
+                                            for (var j = 0; j < row.cells.length - 1; j++) {
+
+
+
+                                                var cell = row.cells[j];
+
+                                                // Get the text content of the cell and append it to the plainText string
+                                                plainText += cell.textContent.trim();
+
+                                                // Add a tab character after each cell value
+                                                plainText += "||";
+
+
+
+                                            }
+
+                                            // Add a newline character after each row
+                                            plainText += "\n";
+
+
+
+                                        }
+                                        for (var i = 0; i < total.rows.length; i++) {
+
+
+
+                                            var row = total.rows[i];
+
+                                            // Traverse each cell in the row
+                                            for (var j = 0; j < row.cells.length; j++) {
+
+
+
+                                                var cell = row.cells[j];
+
+                                                // Get the text content of the cell and append it to the plainText string
+                                                plainText += cell.textContent.trim();
+
+                                                // Add a tab character after each cell value
+                                                plainText += "    ";
+
+
+
+                                            }
+
+                                            // Add a newline character after each row
+                                            plainText += "\n";
+
+
+
+                                        }
+                                        plainText += "We appreciate your business and thank you for choosing us. If you have any questions or concerns regarding your bill, please feel free to contact us.\n"
+                                        // Output the converted plain text
+                                        dataToShare = plainText;
+
+
+                                        // Encode the data for use in the URL
+                                        var encodedData = encodeURIComponent(dataToShare);
+                                        var phone_number = window.prompt("Enter the phone number here : ");
+                                        // Create the WhatsApp share URL with the encoded data
+                                        var whatsappURL = "https://wa.me/" + "+91" + phone_number + "?text=" + encodedData;
+                                        // Open the WhatsApp share URL in a new tab
+                                        window.open(whatsappURL, "_blank");
+
+
+
+
+
+                                    });
+                                </script>
+
+                                <%- include("footer") %>
